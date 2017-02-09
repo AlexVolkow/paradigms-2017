@@ -1,7 +1,7 @@
 Тесты к курсу «Парадигмы программирования»
 ====
 
-[Условия домашних заданий](http://www.kgeorgiy.info/courses/java-intro/homeworks.html)
+[Условия домашних заданий](http://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
 Домашнее задание 1. Сумма чисел
 ----
