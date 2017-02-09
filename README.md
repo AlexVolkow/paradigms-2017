@@ -23,4 +23,4 @@
 Исходный код тестов: 
 
 * [SumTest.java](java/SumTest.java), 
-* [SumTester.java](java/SumChecker.java)
+* [SumTester.java](java/SumTester.java)
