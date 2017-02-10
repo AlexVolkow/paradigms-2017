@@ -5,18 +5,20 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
-public class MainTester {
+public class MainChecker {
     private final Method method;
     public final Random random = new Random(8045702385702345702L);
     private final TestCounter counter = new TestCounter();
 
-    public MainTester(final String className) {
+    public MainChecker(final String className) {
         try {
             final URL url = new File(".").toURI().toURL();
             method = new URLClassLoader(new URL[]{url}).loadClass(className).getMethod("main", String[].class);
@@ -25,14 +27,14 @@ public class MainTester {
         }
     }
 
-    public String run(final String... input) {
+    public List<String> run(final String... input) {
         counter.nextTest();
         System.err.format("Running test %02d: java %s \"%s\"\n", counter.getTest(), method.getDeclaringClass().getName(), join(input));
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
         try {
             method.invoke(null, new Object[]{input});
-            return out.toString("UTF-8");
+            return Arrays.stream(out.toString("UTF-8").split("\n")).map(String::trim).collect(Collectors.toList());
         } catch (final InvocationTargetException e) {
             final Throwable cause = e.getCause();
             System.err.format("Error: %s %s\n", cause.getClass().getSimpleName(), cause.getMessage());
@@ -55,43 +57,19 @@ public class MainTester {
         return sb.toString();
     }
 
-    private String join(final long[] values) {
-        final StringBuilder sb = new StringBuilder();
-        for (final long value : values) {
-            if (sb.length() > 0) {
-                sb.append(" ");
-            }
-            sb.append(value);
-        }
-        return sb.toString();
-    }
-
-    public void test(final long result, final String... input) {
-        test(new long[]{result}, input);
-    }
-
-    public void test(final long[] result, final String... input) {
-        final String output = run(input);
-        if (output != null) {
-            if (check(result, output)) {
-                counter.passed();
-            } else {
-                System.err.println(String.format("Expected %s found %s", join(result), output));
-            }
-        }
-    }
-
-    protected boolean check(final long[] expected, final String output) {
-        try {
-            final Scanner scanner = new Scanner(output);
-            for (final long e : expected) {
-                if (scanner.nextLong() != e) {
-                    return false;
+    public void checkEquals(final List<String> expected, final List<String> actual) {
+        if (expected.size() != actual.size()) {
+            System.err.println(String.format("Expected %d lines, found %d", expected.size(), actual.size()));
+        } else {
+            for (int i = 0; i < expected.size(); i++) {
+                final String exp = expected.get(i);
+                final String act = actual.get(i);
+                if (!exp.equalsIgnoreCase(act)) {
+                    System.err.println(String.format("Line %d: expected '%s' found '%s'", i + 1, exp, act));
+                    return;
                 }
             }
-            return true;
-        } catch (final Exception e) {
-            return false;
+            counter.passed();
         }
     }
 

@@ -5,7 +5,7 @@ import java.util.List;
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
 public class SumTest {
-    private static final SumTester CHECKER = new SumTester("Sum");
+    private static final SumChecker CHECKER = new SumChecker("Sum");
 
     public static void main(final String[] args) {
         CHECKER.test(1, "1");
