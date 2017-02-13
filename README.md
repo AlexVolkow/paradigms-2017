@@ -3,6 +3,15 @@
 
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
+Домашнее задание 2. Бинарный поиск
+----
+
+Модификации
+ * *Базовая*
+    * [Исходный код тестов](java/BinarySearchTest.java)
+    * [Откомпилированные тесты](artifacts/BinarySearchTest.jar)
+
+
 Домашнее задание 1. Сумма чисел
 ----
 
