@@ -1,3 +1,5 @@
+package base;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
@@ -21,7 +23,9 @@ public class MainChecker {
     public MainChecker(final String className) {
         try {
             final URL url = new File(".").toURI().toURL();
-            method = new URLClassLoader(new URL[]{url}).loadClass(className).getMethod("main", String[].class);
+            final Class<?> clazz = new URLClassLoader(new URL[]{url}).loadClass(className);
+            clazz.newInstance();
+            method = clazz.getMethod("main", String[].class);
         } catch (final Exception e) {
             throw new AssertionError("Could not found main(String[]) in class "  + className, e);
         }

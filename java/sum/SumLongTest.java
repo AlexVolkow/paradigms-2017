@@ -1,4 +1,7 @@
-import java.util.*;
+package sum;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)

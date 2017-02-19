@@ -1,3 +1,5 @@
+package base;
+
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */

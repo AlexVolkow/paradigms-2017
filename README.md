@@ -8,8 +8,8 @@
 
 Модификации
  * *Базовая*
-    * [Исходный код тестов](java/BinarySearchTest.java)
-    * [Откомпилированные тесты](artifacts/BinarySearchTest.jar)
+    * [Исходный код тестов](java/search/BinarySearchTest.java)
+    * [Откомпилированные тесты](artifacts/search/BinarySearchTest.jar)
 
 
 Домашнее задание 1. Сумма чисел
@@ -19,20 +19,20 @@
  * *Простая*
     * Входные данные помещаются в тип `long`
     * Класс должен иметь имя `SumLong`
-    * [Исходный код тестов](java/SumLongTest.java)
-    * [Откомпилированные тесты](artifacts/SumLongTest.jar)
+    * [Исходный код тестов](java/sum/SumLongTest.java)
+    * [Откомпилированные тесты](artifacts/sum/SumLongTest.jar)
  * *Усложненная*
     * Входные данные помещаются в тип `long`
     * На вход подаются десятичные и шестнадцатеричные числа
     * Шестнадцатеричные числа имеют префикс `0x`
     * Ввод регистронезависим
     * Класс должен иметь имя `SumLongHex`
-    * [Исходный код тестов](java/SumLongHexTest.java)
-    * [Откомпилированные тесты](artifacts/SumLongHexTest.jar)
+    * [Исходный код тестов](java/sum/SumLongHexTest.java)
+    * [Откомпилированные тесты](artifacts/sum/SumLongHexTest.jar)
 
 Для того, чтобы протестировать исходную программу:
 
- 1. Скачайте тесты ([SumTest.jar](artifacts/SumTest.jar))
+ 1. Скачайте тесты ([SumTest.jar](artifacts/sum/SumTest.jar))
  * Откомпилируйте `Sum.java`
  * Проверьте, что создался `Sum.class`
  * В каталоге, в котором находится `Sum.class` выполните команду 
@@ -46,5 +46,5 @@
     
 Исходный код тестов: 
 
-* [SumTest.java](java/SumTest.java), 
-* [SumChecker.java](java/SumChecker.java)
+* [SumTest.java](java/sum/SumTest.java), 
+* [SumChecker.java](java/sum/SumChecker.java)
