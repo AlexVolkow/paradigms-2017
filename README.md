@@ -10,6 +10,13 @@
  * *Базовая*
     * [Исходный код тестов](java/search/BinarySearchTest.java)
     * [Откомпилированные тесты](artifacts/search/BinarySearchTest.jar)
+ * *Простая*
+    * Если в массиве `a` отсутствует элемент, равный `x`, то требуется
+      вывести индекс вставки в формате, определенном в 
+      [`Arrays.binarySearch`](http://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html#binarySearch-int:A-int-).
+    * Класс должен иметь имя `BinarySearchMissing`
+    * [Исходный код тестов](java/search/BinarySearchMissingTest.java)
+    * [Откомпилированные тесты](artifacts/search/BinarySearchMissingTest.jar)
 
 
 Домашнее задание 1. Сумма чисел
@@ -32,7 +39,7 @@
 
 Для того, чтобы протестировать исходную программу:
 
- 1. Скачайте тесты ([SumTest.jar](artifacts/sum/SumTest.jar))
+ 1. Скачайте откомпилированные тесты ([SumTest.jar](artifacts/sum/SumTest.jar))
  * Откомпилируйте `Sum.java`
  * Проверьте, что создался `Sum.class`
  * В каталоге, в котором находится `Sum.class` выполните команду 
