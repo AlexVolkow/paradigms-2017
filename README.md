@@ -10,14 +10,13 @@
     * [Исходный код тестов](java/queue/ArrayQueueTest.java)
     * [Откомпилированные тесты](artifacts/queue/ArrayQueueTest.jar)
  * *Простая*
-    * Добавить в интерфейс очереди и реализовать метод
-      `toArray`, возвращающий массив,
+    * Реализовать метод `toArray`, возвращающий массив,
       содержащий элементы, лежащие в очереди в порядке
-      от головы к хвосту
+      от головы к хвосту.
     * Исходная очередь должна остаться неизменной
     * Дублирования кода быть не должно
-    * [Исходный код тестов](java/queue/QueueToArrayTest.java)
-    * [Откомпилированные тесты](artifacts/queue/QueueToArrayTest.jar)
+    * [Исходный код тестов](java/queue/ArrayQueueToArrayTest.java)
+    * [Откомпилированные тесты](artifacts/queue/ArrayQueueToArrayTest.jar)
 
 
 Домашнее задание 2. Бинарный поиск
