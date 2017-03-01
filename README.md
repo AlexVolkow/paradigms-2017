@@ -24,6 +24,13 @@
       метод `toString`.
     * [Исходный код тестов](java/queue/ArrayQueueToStrTest.java)
     * [Откомпилированные тесты](artifacts/queue/ArrayQueueToStrTest.jar)
+ * *Усложненная*
+    * Реализовать методы
+        * `push` – добавить элемент в начало очереди
+        * `peek` – вернуть последний элемент в очереди
+        * `remove` – удалить последний элемент из очереди 
+    * [Исходный код тестов](java/queue/ArrayQueueDequeTest.java)
+    * [Откомпилированные тесты](artifacts/queue/ArrayQueueDequeTest.jar)
 
 
 Домашнее задание 2. Бинарный поиск
