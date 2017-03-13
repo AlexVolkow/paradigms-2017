@@ -8,6 +8,12 @@
  * *Базовая*
     * Реализовать интерфейс [Expression](java/expression/Expression.java)
     * [Исходный код тестов](java/expression/ExpressionTest.java)
+
+Домашнее задание 4. Очередь на связном списке
+---
+ * *Базовая*
+    * [Исходный код тестов](java/queue/QueueTest.java)
+    * [Откомпилированные тесты](artifacts/queue/QueueTest.jar)
  * *Простая*
     * Добавить в интерфейс очереди и реализовать метод
       `toArray`, возвращающий массив,
@@ -17,12 +23,6 @@
     * Дублирования кода быть не должно
     * [Исходный код тестов](java/queue/QueueToArrayTest.java)
     * [Откомпилированные тесты](artifacts/queue/QueueToArrayTest.jar)
-
-Домашнее задание 4. Очередь на связном списке
----
- * *Базовая*
-    * [Исходный код тестов](java/queue/QueueTest.java)
-    * [Откомпилированные тесты](artifacts/queue/QueueTest.jar)
 
 Домашнее задание 3. Очередь на массиве
 ---
