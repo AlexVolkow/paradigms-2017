@@ -3,6 +3,12 @@
 
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
+Домашнее задание 5. Вычисление выражений
+---
+ * *Базовая*
+    * Реализовать интерфейс [Expression](java/expression/Expression.java)
+    * [Исходный код тестов](java/expression/ExpressionTest.java)
+
 Домашнее задание 4. Очередь на связном списке
 ---
  * *Базовая*
