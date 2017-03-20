@@ -22,6 +22,9 @@ public class DoubleExpressionTest {
                 ),
                 x -> x * x + (x - 1) / 10
         );
+        testExpression("x*-1_000_000_000", new Multiply(new Variable("x"), new Const(-1_000_000_000)), x -> x * -1_000_000_000.0);
+        testExpression("10/x", new Divide(new Const(10), new Variable("x")), x -> 10.0 / x);
+        testExpression("x/x", new Divide(new Variable("x"), new Variable("x")), x -> x / x);
         System.out.println("OK");
     }
 
