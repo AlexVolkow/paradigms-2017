@@ -3,6 +3,6 @@ package expression;
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
-public interface DoubleExpression {
+public strictfp interface DoubleExpression {
     double evaluate(double x);
 }
