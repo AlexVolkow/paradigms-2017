@@ -25,7 +25,8 @@ public class ExpressionTest {
         testExpression("x*-1_000_000_000", new Multiply(new Variable("x"), new Const(-1_000_000_000)), x -> x * -1_000_000_000);
         testExpression("10/x", new Divide(new Const(10), new Variable("x")), x -> 10 / x);
         testExpression("x/x", new Divide(new Variable("x"), new Variable("x")), x -> x / x);
-        System.out.println("OK");
+
+        System.out.println("OK " + Util.getChecks());
     }
 
     private static void testExpression(final String description, final Expression actual, final Expression expected) {

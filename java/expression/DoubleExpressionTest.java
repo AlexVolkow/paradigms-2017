@@ -7,6 +7,8 @@ import static expression.Util.*;
  */
 public class DoubleExpressionTest {
     public static void main(final String[] args) {
+        ExpressionTest.main(args);
+
         checkAssert(DoubleExpressionTest.class);
         testExpression("10", new Const(10), x -> 10);
         testExpression("x", new Variable("x"), x -> x);
@@ -25,13 +27,18 @@ public class DoubleExpressionTest {
         testExpression("x*-1_000_000_000", new Multiply(new Variable("x"), new Const(-1_000_000_000)), x -> x * -1_000_000_000.0);
         testExpression("10/x", new Divide(new Const(10), new Variable("x")), x -> 10.0 / x);
         testExpression("x/x", new Divide(new Variable("x"), new Variable("x")), x -> x / x);
-        System.out.println("OK");
+        System.out.println("OK " + Util.getChecks());
     }
 
     private static void testExpression(final String description, final DoubleExpression actual, final DoubleExpression expected) {
         System.out.println("Testing " + description);
         for (int i = 0; i < 10; i++) {
-            assertEquals(String.format("f(%d)", i), actual.evaluate(i), expected.evaluate(i));
+            check(i, actual, expected);
+            check(-i, actual, expected);
         }
+    }
+
+    private static void check(final int x, final DoubleExpression actual, final DoubleExpression expected) {
+        assertEquals(String.format("f(%d)", x), actual.evaluate(x), expected.evaluate(x));
     }
 }
