@@ -3,6 +3,15 @@
 
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
+Домашнее задание 6. Разбор выражений
+---
+ * *Базовая*
+    * Класс `ExpressionParser` должен реализовывать интерфейс 
+        [Parser](java/expression/parser/Parser.java)
+    * Результат разбора должен реализовывать интерфейс 
+        [TripleExpression](java/expression/TripleExpression.java)
+    * [Исходный код тестов](java/expression/parser/ParserTest.java)
+
 Домашнее задание 5. Вычисление выражений
 ---
  * *Базовая*
