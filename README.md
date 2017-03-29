@@ -34,7 +34,7 @@
     * Дополнительно реализовать унарные операции (приоритет как у унарного минуса):
         * `abs` — модуль числа, `abs -5` равно 5;
         * `square` — возведение в квадрат, `square -5` равно 25.
-    * [Исходный код тестов](java/expression/ParserHardTest.java)
+    * [Исходный код тестов](java/expression/parser/ParserHardTest.java)
  * *Базовая*
     * Класс `ExpressionParser` должен реализовывать интерфейс 
         [Parser](java/expression/parser/Parser.java)
