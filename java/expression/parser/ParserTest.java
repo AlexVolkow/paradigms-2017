@@ -52,7 +52,8 @@ public class ParserTest {
                 op("x--y--z", (x, y, z) -> x + y + z),
                 op("((2+2))-0/(--2)*555", (x, y, z) -> 4L),
                 op("x-x+y-y+z-(z)", (x, y, z) -> 0L),
-                op(repeat("(", 500) + "x + y + (-10*-z)" + repeat(")", 500), (x, y, z) -> x + y + 10 * z)
+                op(repeat("(", 500) + "x + y + (-10*-z)" + repeat(")", 500), (x, y, z) -> x + y + 10 * z),
+                op("x / (y + 1)", (x, y, z) -> x / (y + 1))
         );
     }
 
@@ -68,7 +69,7 @@ public class ParserTest {
     protected void test() {
         for (final Op<TExpression> test : tests) {
             System.out.println("Testing: " + test.name);
-            final TripleExpression expression = parse(test.name);
+            final TripleExpression expression = parse(test.name, true);
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
                     for (int k = 0; k < 10; k++) {
@@ -85,9 +86,13 @@ public class ParserTest {
         System.out.println("OK");
     }
 
-    protected TripleExpression parse(final String expression) {
+    protected TripleExpression parse(final String expression, final boolean reparse) {
         try {
-            return new ExpressionParser().parse(expression);
+            final ExpressionParser parser = new ExpressionParser();
+            if (reparse) {
+                parser.parse(expression);
+            }
+            return parser.parse(expression);
         } catch (final Exception e) {
             throw new AssertionError("Parser failed", e);
         }
@@ -104,7 +109,7 @@ public class ParserTest {
             final Test test = f.apply(vars, i);
             try {
                 total += test.expr.length();
-                check(vars, parse(test.expr), test.answer);
+                check(vars, parse(test.expr, false), test.answer);
             } catch (final Throwable e) {
                 System.out.println("Failed test: " + test.expr);
                 throw e;
