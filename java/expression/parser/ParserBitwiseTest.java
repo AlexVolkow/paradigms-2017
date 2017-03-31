@@ -1,5 +1,7 @@
 package expression.parser;
 
+import java.util.Arrays;
+
 import static expression.Util.*;
 
 /**
@@ -7,11 +9,11 @@ import static expression.Util.*;
  */
 public class ParserBitwiseTest extends ParserTest {
     protected ParserBitwiseTest() {
-        levels.add(0, list(op("&", (a, b) -> (long) (a.intValue() & b.intValue()))));
-        levels.add(0, list(op("^", (a, b) -> (long) (a.intValue() ^ b.intValue()))));
-        levels.add(0, list(op("|", (a, b) -> (long) (a.intValue() | b.intValue()))));
+        levels.add(0, list(op("&", (a, b) -> a & b)));
+        levels.add(0, list(op("^", (a, b) -> a ^ b)));
+        levels.add(0, list(op("|", (a, b) -> a | b)));
 
-        tests.addAll(list(
+        tests.addAll(Arrays.asList(
                 op("6 & 1 + 2", (x, y, z) -> 2L),
                 op("6 ^ 1 + 2", (x, y, z) -> 5L),
                 op("6 | 1 + 2", (x, y, z) -> 7L),
@@ -30,6 +32,6 @@ public class ParserBitwiseTest extends ParserTest {
 
     public static void main(final String[] args) {
         checkAssert(ParserBitwiseTest.class);
-        new ParserBitwiseTest().test();
+        new ParserBitwiseTest().run();
     }
 }

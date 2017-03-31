@@ -1,5 +1,7 @@
 package expression.parser;
 
+import java.util.Arrays;
+
 import static expression.Util.*;
 
 /**
@@ -8,15 +10,15 @@ import static expression.Util.*;
 public class ParserShiftsTest extends ParserTest {
     protected ParserShiftsTest() {
         levels.add(0, list(
-                op("<<", (a, b) -> (long) (a.intValue() << b.intValue())),
-                op(">>", (a, b) -> (long) (a.intValue() >> b.intValue()))
+                op("<<", (a, b) -> (int) a << (int) b),
+                op(">>", (a, b) -> (int) a >> (int) b)
         ));
 
-        tests.addAll(list(
+        tests.addAll(Arrays.asList(
                 op("1 << 5 + 3", (x, y, z) -> 256L),
-                op("x + y << z", (x, y, z) -> x + y << z),
-                op("x * y << z", (x, y, z) -> x * y << z),
-                op("x << y << z", (x, y, z) -> x << y << z),
+                op("x + y << z", (x, y, z) -> (int) (x + y) << (int) z),
+                op("x * y << z", (x, y, z) -> (int) (x * y) << (int) z),
+                op("x << y << z", (x, y, z) -> (int) x << (int) y << (int) z),
                 op("1024 >> 5 + 3", (x, y, z) -> 4L),
                 op("x + y >> z", (x, y, z) -> x + y >> z),
                 op("x * y >> z", (x, y, z) -> x * y >> z),
@@ -26,6 +28,6 @@ public class ParserShiftsTest extends ParserTest {
 
     public static void main(final String[] args) {
         checkAssert(ParserShiftsTest.class);
-        new ParserShiftsTest().test();
+        new ParserShiftsTest().run();
     }
 }

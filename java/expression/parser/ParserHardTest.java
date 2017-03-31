@@ -28,6 +28,6 @@ public class ParserHardTest extends ParserShiftsTest {
 
     public static void main(final String[] args) {
         checkAssert(ParserHardTest.class);
-        new ParserHardTest().test();
+        new ParserHardTest().run();
     }
 }
