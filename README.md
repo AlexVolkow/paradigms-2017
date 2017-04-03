@@ -24,6 +24,11 @@
 
 Домашнее задание 7. Обработка ошибок
 ---
+ * *Простая*
+    * Дополнительно реализовать унарные операции:
+        * `log2` — логарифм по уснованию 2, `log2 10` равно 3;
+        * `pow2` — два в степени, `pow2 4` равно 16.
+    * [Исходный код тестов](java/expression/exceptions/ExceptionsLog2Test.java)
  * *Базовая*
     * Класс `ExpressionParser` должен реализовывать интерфейс 
         [Parser](java/expression/exceptions/Parser.java)
