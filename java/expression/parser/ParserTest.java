@@ -108,6 +108,7 @@ public class ParserTest {
             final ExpressionParser parser = new ExpressionParser();
             if (reparse) {
                 parser.parse(expression);
+                total++;
             }
             return parser.parse(expression);
         } catch (final Exception e) {

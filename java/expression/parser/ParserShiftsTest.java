@@ -27,7 +27,6 @@ public class ParserShiftsTest extends ParserTest {
     }
 
     public static void main(final String[] args) {
-        checkAssert(ParserShiftsTest.class);
         new ParserShiftsTest().run();
     }
 }
