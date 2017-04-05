@@ -29,6 +29,11 @@
         * `log2` — логарифм по уснованию 2, `log2 10` равно 3;
         * `pow2` — два в степени, `pow2 4` равно 16.
     * [Исходный код тестов](java/expression/exceptions/ExceptionsLog2Test.java)
+ * *Простая 2* 
+    * Дополнительно реализовать унарные операции:
+        * `abs` — модуль числа, `abs -5` равно 5;
+        * `sqrt` — квадратный корень, `sqrt 24` равно 4.
+    * [Исходный код тестов](java/expression/exceptions/ExceptionsAbsTest.java)
  * *Базовая*
     * Класс `ExpressionParser` должен реализовывать интерфейс 
         [Parser](java/expression/exceptions/Parser.java)
