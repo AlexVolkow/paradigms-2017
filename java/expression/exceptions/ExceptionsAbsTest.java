@@ -16,6 +16,7 @@ public class ExceptionsAbsTest extends ExceptionsTest {
 
         tests.addAll(Arrays.asList(
                 op("abs -4", (x, y, z) -> 4L),
+                op("abs-5", (x, y, z) -> 5L),
                 op("abs " + Integer.MIN_VALUE, (x, y, z) -> error(OVERFLOW)),
                 op("sqrt 4", (x, y, z) -> 2L),
                 op("sqrt 8", (x, y, z) -> 2L),

@@ -18,6 +18,7 @@ public class ExceptionsLog2Test extends ExceptionsTest {
         tests.addAll(Arrays.asList(
                 op("log2 10", (x, y, z) -> 3),
                 op("log2 -4", (x, y, z) -> error(NEG_LOG)),
+                op("log2-5", (x, y, z) -> error(NEG_LOG)),
                 op("pow2 4", (x, y, z) -> 16),
                 op("pow2 8", (x, y, z) -> 256),
                 op("pow2 x * y * z", (x, y, z) -> pow2(x) * y * z),
@@ -25,10 +26,11 @@ public class ExceptionsLog2Test extends ExceptionsTest {
         ));
         parsingTest.addAll(Arrays.asList(
                 op("hello", "hello"),
-                op("log2", "log2"),
                 op("log2()", "log2()"),
                 op("log2(1, 2)", "log2(1, 2)"),
-                op("log(1)", "log(1)")
+                op("lgg 1", "lgg 1"),
+                op("log2 *", "log2 *"),
+                op("log2x", "log2x")
         ));
     }
 
