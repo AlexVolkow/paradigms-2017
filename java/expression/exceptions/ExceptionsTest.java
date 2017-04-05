@@ -55,6 +55,7 @@ public class ExceptionsTest extends ParserTest {
 
     private void testParsingErrors() {
         for (final Op<String> op : parsingTest) {
+            total++;
             try {
                 new ExpressionParser().parse(op.f);
                 assert false : "Successfully parsed " + op.f;
