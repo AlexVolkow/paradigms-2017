@@ -49,7 +49,8 @@ public class ExceptionsTest extends ParserTest {
             op("Start symbol", "@x * y"),
             op("Middle symbol", "x @ * y"),
             op("End symbol", "x * y@"),
-            op("Constant overflow", "-1000000000000000000000")
+            op("Constant overflow 1", Integer.MIN_VALUE - 1L + ""),
+            op("Constant overflow 2", Integer.MAX_VALUE + 1L + "")
     ));
 
     public static void main(final String[] args) {
