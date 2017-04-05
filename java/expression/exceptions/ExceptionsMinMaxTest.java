@@ -9,7 +9,7 @@ import static expression.Util.*;
  */
 public class ExceptionsMinMaxTest extends ExceptionsAbsTest {
     protected ExceptionsMinMaxTest() {
-        levels.add(list(
+        levels.add(0, list(
                 op("min", Math::min),
                 op("max", Math::max)
         ));
