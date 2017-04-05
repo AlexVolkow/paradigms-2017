@@ -37,7 +37,7 @@ public class ExceptionsTest extends ParserTest {
 
     private int subtests = 0;
 
-    private final List<Op<String>> parsingTest = Arrays.asList(
+    protected final List<Op<String>> parsingTest = new ArrayList<>(Arrays.asList(
             op("No first argument", "* y * z"),
             op("No middle argument", "x *  * z"),
             op("No last argument", "x * y * "),
@@ -47,7 +47,7 @@ public class ExceptionsTest extends ParserTest {
             op("Middle symbol", "x @ * y"),
             op("End symbol", "x * y@"),
             op("Constant overflow", "-1000000000000000000000")
-    );
+    ));
 
     public static void main(final String[] args) {
         new ExceptionsTest().run();

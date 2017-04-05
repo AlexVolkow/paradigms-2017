@@ -23,7 +23,13 @@ public class ExceptionsLog2Test extends ExceptionsTest {
                 op("pow2 x * y * z", (x, y, z) -> pow2(x) * y * z),
                 op("pow2(x * y * z)", (x, y, z) -> pow2(x * y * z))
         ));
-        System.out.println(tests.size());
+        parsingTest.addAll(Arrays.asList(
+                op("hello", "hello"),
+                op("log2", "log2"),
+                op("log2()", "log2()"),
+                op("log2(1, 2)", "log2(1, 2)"),
+                op("log(1)", "log(1)")
+        ));
     }
 
     private long pow2(final long a) {

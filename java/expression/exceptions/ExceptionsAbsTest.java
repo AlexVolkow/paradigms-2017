@@ -22,6 +22,13 @@ public class ExceptionsAbsTest extends ExceptionsTest {
                 op("sqrt x * y * z", (x, y, z) -> sqrt(x) * y * z),
                 op("sqrt(x * y * z)", (x, y, z) -> sqrt(x * y * z))
         ));
+        parsingTest.addAll(Arrays.asList(
+                op("hello", "hello"),
+                op("abs", "abs"),
+                op("abs()", "abs()"),
+                op("abs(1, 2)", "abs(1, 2)"),
+                op("abb 1", "abb 1")
+        ));
     }
 
     private long sqrt(final long a) {
