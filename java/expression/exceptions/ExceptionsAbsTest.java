@@ -28,7 +28,8 @@ public class ExceptionsAbsTest extends ExceptionsTest {
                 op("abs()", "abs()"),
                 op("abs(1, 2)", "abs(1, 2)"),
                 op("abb 1", "abb 1"),
-                op("abs *", "abs *")
+                op("abs *", "abs *"),
+                op("absx", "absx")
         ));
     }
 
