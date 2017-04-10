@@ -1,7 +1,5 @@
 package expression.generic;
 
-import static expression.Util.checkAssert;
-
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
@@ -46,7 +44,6 @@ public class GenericEasyTest extends GenericTest {
     }
 
     public static void main(final String[] args) {
-        checkAssert(GenericEasyTest.class);
         new GenericEasyTest().test();
     }
 }

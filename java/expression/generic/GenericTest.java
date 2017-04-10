@@ -16,8 +16,10 @@ public class GenericTest {
 
     protected final List<Op<F<?>>> tests = new ArrayList<>();
     private final Tabulator tabulator = new GenericTabulator();
+    protected int total;
 
     public GenericTest() {
+        checkAssert(getClass());
         all(
                 "10",
                 (x, y, z) -> 10,
@@ -88,6 +90,7 @@ public class GenericTest {
                     -randomInt(SIZE), randomInt(SIZE)
             );
         }
+        System.out.println("OK " + total);
     }
 
     private void test(final String mode, final String expression, final F<?> f, final int x1, final int x2, final int y1, final int y2, final int z1, final int z2) {
@@ -108,6 +111,7 @@ public class GenericTest {
                         expected = null;
                     }
                     final Object actual = result[x - x1][y - y1][z - z1];
+                    total++;
                     assert Objects.equals(expected, actual) : String.format("table[%d][%d][%d] = %s (expected %s)", x - x1, y - y1, z - z1, actual, expected);
                 }
             }
