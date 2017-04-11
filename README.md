@@ -7,9 +7,9 @@
 ---
  * *Базовая*
     * Код должен находиться в файле `expression.js`.
-    * [Исходный код тестов](javascript/test/ExpressionTest.java)
+    * [Исходный код тестов](javascript/test/FunctionalExpressionTest.java)
         * Запускать c аргументом `hard` или `easy`
-        * Решение должно называться `expression.js`
+        * Решение должно называться `functionalExpression.js`
 
 Исходный код к лекции по JavaScript
 ----
@@ -17,6 +17,9 @@
 * [Запуск в браузере](javascript/RunJS.html) (в браузере)
 * [Запуск из консоли](javascript/RunJS.java) (на Java)
 * [Запуск из консоли](javascript/RunJS.js) (на node.js)
+
+Обратите внимание на реализацию функции `mCurry` в разделе про 
+[функции высшего порядка](javascript/examples/functions-hi.js)
 
 Домашнее задание 8. Вычисление в различных типах
 ---
