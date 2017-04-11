@@ -1,25 +1,23 @@
 package expression.generic;
 
+import expression.BaseTest;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static expression.Util.*;
-
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
-public class GenericTest {
+public class GenericTest extends BaseTest {
     private static final int SIZE = 20;
 
     protected final List<Op<F<?>>> tests = new ArrayList<>();
     private final Tabulator tabulator = new GenericTabulator();
-    protected int total;
 
     public GenericTest() {
-        checkAssert(getClass());
         all(
                 "10",
                 (x, y, z) -> 10,
@@ -53,7 +51,7 @@ public class GenericTest {
         all(
                 "10000000 * x * y * 10000000 + z",
                 (x, y, z) -> i(10000000 * x * y * 10000000L + z),
-                (x, y, z) -> 10000000 * x * y * 10000000.0 + z,
+                (x, y, z) -> 10000000.0 * x * y * 10000000.0 + z,
                 (x, y, z) -> bi(10000000).multiply(bi(x)).multiply(bi(y)).multiply(bi(10000000)).add(bi(z))
         );
         all(
@@ -80,6 +78,7 @@ public class GenericTest {
         );
     }
 
+    @Override
     public void test() {
         for (final Op<F<?>> test : tests) {
             final String[] parts = test.name.split(":");
@@ -90,11 +89,10 @@ public class GenericTest {
                     -randomInt(SIZE), randomInt(SIZE)
             );
         }
-        System.out.println("OK " + total);
     }
 
     private void test(final String mode, final String expression, final F<?> f, final int x1, final int x2, final int y1, final int y2, final int z1, final int z2) {
-        System.out.format("mode=%s, x=[%d, %d] y=[%d, %d] z=[%d, %d], expression=%s\n", mode, x1, x2, y1, y2, z1, z2, expression);
+        System.out.format("mode=%s, x=[%d, %d] y=[%d, %d] z=[%d, %d], expression=%s%n", mode, x1, x2, y1, y2, z1, z2, expression);
         final Object[][][] result;
         try {
             result = tabulator.tabulate(mode, expression, x1, x2, y1, y2, z1, z2);
@@ -111,7 +109,7 @@ public class GenericTest {
                         expected = null;
                     }
                     final Object actual = result[x - x1][y - y1][z - z1];
-                    total++;
+                    op();
                     assert Objects.equals(expected, actual) : String.format("table[%d][%d][%d] = %s (expected %s)", x - x1, y - y1, z - z1, actual, expected);
                 }
             }
@@ -119,8 +117,7 @@ public class GenericTest {
     }
 
     public static void main(final String[] args) {
-        checkAssert(GenericTest.class);
-        new GenericTest().test();
+        new GenericTest().run();
     }
 
     protected interface F<T> {

@@ -2,8 +2,6 @@ package expression.exceptions;
 
 import java.util.Arrays;
 
-import static expression.Util.op;
-
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
@@ -14,7 +12,6 @@ public class ExceptionsLog2Test extends ExceptionsTest {
         unary.add(op("log2", this::log2));
         unary.add(op("pow2", this::pow2));
 
-        System.out.println(tests.size());
         tests.addAll(Arrays.asList(
                 op("log2 10", (x, y, z) -> 3),
                 op("log2 -4", (x, y, z) -> error(NEG_LOG)),

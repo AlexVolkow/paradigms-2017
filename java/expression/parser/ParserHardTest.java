@@ -2,8 +2,6 @@ package expression.parser;
 
 import java.util.Arrays;
 
-import static expression.Util.*;
-
 /**
  * @author Georgiy Korneev
  */
@@ -27,7 +25,6 @@ public class ParserHardTest extends ParserShiftsTest {
     }
 
     public static void main(final String[] args) {
-        checkAssert(ParserHardTest.class);
         new ParserHardTest().run();
     }
 }

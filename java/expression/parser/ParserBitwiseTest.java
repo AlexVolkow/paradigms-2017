@@ -2,8 +2,6 @@ package expression.parser;
 
 import java.util.Arrays;
 
-import static expression.Util.*;
-
 /**
  * @author Georgiy Korneev
  */
@@ -31,7 +29,6 @@ public class ParserBitwiseTest extends ParserTest {
     }
 
     public static void main(final String[] args) {
-        checkAssert(ParserBitwiseTest.class);
         new ParserBitwiseTest().run();
     }
 }

@@ -2,8 +2,6 @@ package expression.parser;
 
 import java.util.Arrays;
 
-import static expression.Util.*;
-
 /**
  * @author Georgiy Korneev
  */

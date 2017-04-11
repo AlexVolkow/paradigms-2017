@@ -7,28 +7,37 @@ import java.util.stream.Stream;
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
-public class Util {
-    public static final Random RNG = new Random(61L);
+public abstract class BaseTest {
+    public final Random random = new Random(7240958270458L);
 
-    // Utility class
-    private Util() {}
+    private int ops;
 
-    private static int checks;
-
-    public static void assertTrue(final String message, final boolean condition) {
-        assert condition : message;
-        checks++;
+    protected BaseTest() {
+        checkAssert(getClass());
     }
 
-    public static void assertEquals(final String message, final int actual, final int expected) {
+    public void assertTrue(final String message, final boolean condition) {
+        assert condition : message;
+        op();
+    }
+
+    protected void op() {
+        ops(1);
+    }
+
+    protected void ops(final int ops) {
+        this.ops += ops;
+    }
+
+    public void assertEquals(final String message, final int actual, final int expected) {
         assertTrue(String.format("%s: Expected %d, found %d", message, expected, actual), actual == expected);
     }
 
-    public static void assertEquals(final String message, final Object actual, final Object expected) {
+    public void assertEquals(final String message, final Object actual, final Object expected) {
         assertTrue(String.format("%s: Expected \"%s\", found \"%s\"", message, expected, actual), actual != null && actual.equals(expected) || expected == null);
     }
 
-    public static void assertEquals(final String message, final double precision, final double actual, final double expected) {
+    public void assertEquals(final String message, final double precision, final double actual, final double expected) {
         assertTrue(
                 String.format("%s: Expected %.12f, found %.12f", message, expected, actual),
                 Math.abs(actual - expected) < precision ||
@@ -38,7 +47,7 @@ public class Util {
         );
     }
 
-    public static void checkAssert(final Class<?> c) {
+    private void checkAssert(final Class<?> c) {
         Locale.setDefault(Locale.US);
 
         boolean assertsEnabled = false;
@@ -52,32 +61,35 @@ public class Util {
         return Stream.generate(() -> s).limit(n).collect(Collectors.joining());
     }
 
-    public static <T> T random(final List<T> variants) {
-        return variants.get(RNG.nextInt(variants.size()));
+    public <T> T random(final List<T> variants) {
+        return variants.get(random.nextInt(variants.size()));
     }
 
     @SafeVarargs
-    public static <T> T random(final T... variants) {
+    public final <T> T random(final T... variants) {
         return random(Arrays.asList(variants));
     }
 
-    public static int randomInt(final int n) {
-        return RNG.nextInt(n);
+    public int randomInt(final int n) {
+        return random.nextInt(n);
     }
+
+    public void run() {
+        test();
+        System.out.format("%s OK: %d%n", getClass().getSimpleName(), ops);
+    }
+
+    protected abstract void test();
 
     @SafeVarargs
     public static <T> List<T> list(final T... items) {
-        return new ArrayList<T>(Arrays.asList(items));
+        return new ArrayList<>(Arrays.asList(items));
     }
 
     public static void addRange(final List<Integer> values, final int d, final int c) {
         for (int i = -d; i <= d; i++) {
             values.add(c + i);
         }
-    }
-
-    public static int getChecks() {
-        return checks;
     }
 
     public static final class Op<T> {
