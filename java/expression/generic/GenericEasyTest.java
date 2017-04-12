@@ -44,6 +44,6 @@ public class GenericEasyTest extends GenericTest {
     }
 
     public static void main(final String[] args) {
-        new GenericEasyTest().test();
+        new GenericEasyTest().run();
     }
 }
