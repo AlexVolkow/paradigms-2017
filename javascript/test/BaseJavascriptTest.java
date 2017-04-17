@@ -2,13 +2,8 @@ package test;
 
 import expression.BaseTest;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.BiFunction;
-import java.util.function.BinaryOperator;
-import java.util.function.UnaryOperator;
+import java.util.*;
+import java.util.function.*;
 
 /**
  * @author Niyaz Nigmatullin
@@ -21,25 +16,25 @@ public abstract class BaseJavascriptTest<E extends Engine> extends BaseTest {
     protected final E engine;
     protected final Language language;
 
-    final boolean testParse;
+    final boolean testParsing;
 
     protected BaseJavascriptTest(final E engine, final Language language, final boolean testParsing) {
         this.engine = engine;
         this.language = language;
-        this.testParse = testParsing;
+        this.testParsing = testParsing;
     }
 
+    @Override
     protected void test() {
         for (final Expr<TExpr> test : language.tests) {
             test(test.parsed, test.answer, test.unparsed);
-            if (testParse) {
+            if (testParsing) {
                 test(parse(test.unparsed), test.answer, test.unparsed);
                 test(parse(language.addSpaces(test.unparsed, random)), test.answer, test.unparsed);
             }
         }
 
-        testRandom(444, (v, i) -> generate(v, i / 5 + 2));
-        System.out.println("OK");
+        testRandom(444);
     }
 
     protected abstract String parse(final String expression);
@@ -49,10 +44,15 @@ public abstract class BaseJavascriptTest<E extends Engine> extends BaseTest {
         test(expression, polish);
 
         engine.parse(expression);
-        for (double i = 1; i <= N; i += 1) {
-            for (double j = 1; j <= N; j += 1) {
-                for (double k = 1; k <= N; k += 1) {
-                    evaluate(new double[]{i, j, k}, f.evaluate(i, j, k), EPS);
+        test(f);
+    }
+
+    protected void test(final TExpr f) {
+        for (double i = 0; i <= N; i += 1) {
+            for (double j = 0; j <= N; j += 1) {
+                for (double k = 0; k <= N; k += 1) {
+                    final double[] vars = new double[]{i, j, k};
+                    evaluate(vars, f.evaluate(vars), EPS);
                 }
             }
         }
@@ -61,66 +61,42 @@ public abstract class BaseJavascriptTest<E extends Engine> extends BaseTest {
     protected void test(final String parsed, final String unparsed) {
     }
 
-    public void testRandom(final int n, final BiFunction<double[], Integer, Expr<Double>> f) {
+    public void testRandom(final int n) {
         System.out.println("Testing random tests");
         for (int i = 0; i < n; i++) {
             if (i % 100 == 0) {
                 System.out.println("    Completed " + i + " out of " + n);
             }
-            final double[] vars = new double[]{random.nextDouble(), random.nextDouble(), random.nextDouble()};
+            final double[] vars = random.doubles().limit(language.abstractTests.getVariables().size()).toArray();
 
-            final Expr<Double> test = f.apply(vars, i);
+            final Expr<TExpr> test = language.randomTest(random, i);
+            final double answer = test.answer.evaluate(vars);
 
+            ops(test.parsed.length());
             engine.parse(test.parsed);
-            evaluate(vars, test.answer, EPS);
+            evaluate(vars, answer, EPS);
             test(test.parsed, test.unparsed);
             test(language.addSpaces(test.parsed, random), test.unparsed);
-            if (testParse) {
+            if (testParsing) {
                 final String expr = parse(test.unparsed);
+                ops(test.unparsed.length());
                 test(expr, test.unparsed);
 
+                ops(expr.length());
                 engine.parse(expr);
-                evaluate(vars, test.answer, EPS);
+                evaluate(vars, answer, EPS);
             }
         }
     }
 
-    protected void evaluate(final double[] vars, final double expected, final double precision) {
+    protected void evaluate(final double[] vars, final double answer, final double precision) {
+        op();
         final Engine.Result<Number> result = engine.evaluate(vars);
-        assertEquals(result.context, precision, result.value.doubleValue(), expected);
-    }
-
-    protected Expr<Double> generate(final double[] vars, final int depth) {
-        if (depth == 0) {
-            if (random.nextBoolean()) {
-                final int id = randomInt(3);
-                final String name = "xyz".charAt(id) + "";
-                return language.variable(name, vars[id]);
-            } else {
-                final int value = random.nextInt();
-                return language.constant(value, (double) value);
-            }
-        }
-        final int operator = randomInt(6);
-        if (operator <= 0) {
-            return generateP(vars, depth);
-        } else if (operator <= 1) {
-            return language.unary(random(language.unary), generateP(vars, depth));
-        } else {
-            return language.binary(random(language.binary), generateP(vars, depth), generateP(vars, depth));
-        }
-    }
-
-    protected Expr<Double> generateP(final double[] vars, final int depth) {
-        return generate(vars, randomInt(depth));
+        assertEquals(result.context, precision, result.value.doubleValue(), answer);
     }
 
     public static Dialect dialect(final String variable, final String constant, final BiFunction<String, List<String>, String> nary) {
         return new Dialect(variable, constant, nary);
-    }
-
-    public static Ops ops() {
-        return new Ops();
     }
 
     protected static int mode(final String[] args, final Class<?> type, final String... modes) {
@@ -139,18 +115,35 @@ public abstract class BaseJavascriptTest<E extends Engine> extends BaseTest {
     }
 
     public interface TExpr {
-        double evaluate(double x, double y, double z);
+        double evaluate(double[] vars);
     }
 
-    public static class Dialect {
+    public interface Operator<T> {
+        T apply(List<T> args);
+
+        int arity();
+    }
+
+    public static class Dialect implements Cloneable {
         private final String variable;
         private final String constant;
         private final BiFunction<String, List<String>, String> nary;
+        private final Map<String, String> operations;
 
         public Dialect(final String variable, final String constant, final BiFunction<String, List<String>, String> nary) {
+            this(variable, constant, nary, new HashMap<>());
+        }
+
+        private Dialect(final String variable, final String constant, final BiFunction<String, List<String>, String> nary, final Map<String, String> operations) {
             this.variable = variable;
             this.constant = constant;
             this.nary = nary;
+            this.operations = operations;
+        }
+
+        public Dialect rename(final String name, final String alias) {
+            operations.put(name, alias);
+            return this;
         }
 
         public String variable(final String name) {
@@ -161,31 +154,17 @@ public abstract class BaseJavascriptTest<E extends Engine> extends BaseTest {
             return String.format(constant, value);
         }
 
-        public String unary(final String op, final String a) {
-            return nary(op, list(a));
+        public String operation(final String name, final List<String> as) {
+            return nary.apply(operations.getOrDefault(name, name), as);
         }
 
-        String binary(final String op, final String a, final String b) {
-            return nary(op, list(a, b));
+        public String nullary(final String name) {
+            return name;
         }
 
-        String nary(final String op, final List<String> as) {
-            return nary.apply(op, as);
-        }
-    }
-
-    public static class Ops {
-        final Map<String, Expr<UnaryOperator<Double>>> unary = new HashMap<>();
-        final Map<String, Expr<BinaryOperator<Double>>> binary = new HashMap<>();
-
-        public Ops unary(final String name, final String parsed, final String unparsed, final UnaryOperator<Double> answer) {
-            unary.put(name, new Expr<>(parsed, unparsed, answer));
-            return this;
-        }
-
-        public Ops binary(final String name, final String parsed, final String unparsed, final BinaryOperator<Double> answer) {
-            binary.put(name, new Expr<>(parsed, unparsed, answer));
-            return this;
+        @Override
+        public Dialect clone() {
+            return new Dialect(variable, constant, nary, new HashMap<>(operations));
         }
     }
 
@@ -198,6 +177,14 @@ public abstract class BaseJavascriptTest<E extends Engine> extends BaseTest {
             this.parsed = parsed;
             this.unparsed = unparsed;
             this.answer = answer;
+        }
+
+        public <R> Expr<R> map(final Function<T, R> f) {
+            return set(f.apply(answer));
+        }
+
+        public <R> Expr<R> set(final R answer) {
+            return new Expr<>(parsed, unparsed, answer);
         }
     }
 }

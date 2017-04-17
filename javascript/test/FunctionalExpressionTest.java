@@ -1,33 +1,61 @@
 package test;
 
+import expression.BaseTest;
+
+import java.util.function.BiFunction;
+
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
 public class FunctionalExpressionTest extends BaseJavascriptTest<Engine> {
-    public static final Dialect FUNCTIONS = dialect(
+    public static final Dialect PURE_FUNCTIONS = dialect(
             "variable('%s')",
             "cnst(%s)",
             (op, args) -> op + "(" + String.join(", ", args) + ")"
     );
+    public static final Dialect ARITHMETIC_FUNCTIONS = PURE_FUNCTIONS.clone()
+            .rename("+", "add")
+            .rename("-", "subtract")
+            .rename("/", "divide")
+            .rename("*", "multiply");
+
     public static final Dialect POLISH = dialect(
             "%s",
             "%s",
             (op, args) -> String.join(" ", args) + " " + op
     );
 
-    public static final Ops OPS = ops()
-            .binary("+", "add", "+", (a, b) -> a + b)
-            .binary("-", "subtract", "-", (a, b) -> a - b)
-            .binary("*", "multiply", "*", (a, b) -> a * b)
-            .binary("/", "divide", "/", (a, b) -> a / b)
-            .unary("negate", "negate", "negate", a -> -a);
+    public static class ArithmeticTests extends AbstractTests {
+        protected final AbstractTests.AbstractExpression vx = variable("x", 0);
+        protected final AbstractTests.AbstractExpression vy = variable("y", 1);
+        protected final AbstractTests.AbstractExpression vz = variable("z", 2);
 
-    public FunctionalExpressionTest(final Engine engine, final Dialect parsed, final Dialect unparsed, final boolean testParsing) {
-        super(engine, new ArithmeticLanguage(parsed, unparsed, OPS), testParsing);
+        public ArithmeticTests() {
+            binary("+", (a, b) -> a + b);
+            binary("-", (a, b) -> a - b);
+            binary("*", (a, b) -> a * b);
+            binary("/", (a, b) -> a / b);
+            unary("negate", a -> -a);
+
+            tests(
+                    c(10),
+                    vx,
+                    vy,
+                    vz,
+                    f("+", vx, c(2)),
+                    f("-", c(3), vy),
+                    f("*", c(4), vz),
+                    f("/", c(5), vz),
+                    f("/", f("negate", vx), c(2)),
+                    f("/", vx, f("*", vy, vz)),
+                    f("+", f("+", f("*", vx, vx), f("*", vy, vy)), f("*", vz, vz)),
+                    f("-", f("+", f("*", vx, vx), f("*", c(5), f("*", vz, f("*", vz, vz)))), f("*", vy, c(8)))
+            );
+        }
     }
 
-    protected FunctionalExpressionTest(final boolean testParsing) {
-        this(new JSEngine("functionalExpression.js", ""), FUNCTIONS, POLISH, testParsing);
+    protected FunctionalExpressionTest(final Language language, final boolean testParsing) {
+        super(new JSEngine("functionalExpression.js", ""), language, testParsing);
     }
 
     @Override
@@ -36,26 +64,18 @@ public class FunctionalExpressionTest extends BaseJavascriptTest<Engine> {
     }
 
     public static void main(final String... args) {
-        new FunctionalExpressionTest(mode(args, FunctionalExpressionTest.class, "easy", "hard") == 1).test();
+        test(FunctionalExpressionTest.class, FunctionalExpressionTest::new, args, new ArithmeticTests());
     }
 
-    public static class ArithmeticLanguage extends Language {
-        public ArithmeticLanguage(final Dialect parsed, final Dialect unparsed, final Ops ops) {
-            super(parsed, unparsed, ops);
-            tests.addAll(list(
-                    constant(10),
-                    vx,
-                    vy,
-                    vz,
-                    b("+", vx, constant(2)),
-                    b("-", constant(3), vy),
-                    b("*", constant(4), vz),
-                    b("/", constant(5), vz),
-                    b("/", u("negate", vx), constant(2)),
-                    b("/", vx, b("*", vy, vz)),
-                    b("+", b("+", b("*", vx, vx), b("*", vy, vy)), b("*", vz, vz)),
-                    b("-", b("+", b("*", vx, vx), b("*", constant(5), b("*", vz, b("*", vz, vz)))), b("*", vy, constant(8)))
-            ));
-        }
+    protected static <T extends BaseTest> void test(final Class<T> type, final BiFunction<Language, Boolean, T> cons, final String[] args, final AbstractTests tests) {
+        test(type, cons, tests, args, ARITHMETIC_FUNCTIONS);
+    }
+
+    protected static <T extends BaseTest> void test(final Class<T> type, final BiFunction<Language, Boolean, T> cons, final AbstractTests tests, final String[] args, final Dialect parsed) {
+        cons.apply(
+                new Language(parsed, POLISH, tests),
+                mode(args, type, "easy", "hard") == 1
+        ).run();
+        System.out.println("Mode: " + args[0]);
     }
 }
