@@ -1,8 +1,8 @@
 "use strict";
 
 chapter("Hi-order functions");
-
 section("Minimum by absolute value");
+
 var minimumByAbs = function() {
     var result = Infinity;
     for (var i = 0; i < arguments.length; i++) {
@@ -15,7 +15,9 @@ var minimumByAbs = function() {
 println("minimumByAbs =", minimumByAbs);
 example("minimumByAbs(1, -2, 3)");
 
+
 section("Unify minimum and minimumByAbs");
+
 var minimumBy = function(comparator) {
     return function() {
         var result = Infinity;
@@ -43,7 +45,9 @@ println("identity =", identity);
 example("minimum(1, -2, 3)");
 example("minimumByAbs(1, -2, 3)");
 
+
 section("Unify minimumBy and sum");
+
 function foldLeft(f, zero) {
     return function() {
         var result = zero;
@@ -66,14 +70,18 @@ example("sum(1, -2, 3)");
 example("multiply(1, -2, 3)");
 example("minimumByAbs(1, -2, 3)");
 
+
 section("sumSquares and sumAbs");
+
 function square(x) { return x * x; }
 var sumSquares = foldLeft(function(a, b) { return a + square(b) }, 0);
 var sumAbs = foldLeft(function(a, b) { return a + Math.abs(b) }, 0);
 example("sumSquares(1, -2, 3)");
 example("sumAbs(1, -2, 3)");
 
+
 section("Unify sumSquares and sumAbs");
+
 function map(f) {
     return function() {
         var result = [];
@@ -107,7 +115,9 @@ for (var i = 0; i < 10; i++) {
     println(i + " " + Math.cos(i) + " " + dsin(i) + " " + Math.abs(Math.cos(i) - dsin(i)));
 }
 
+
 section("curry");
+
 var curry = function(f) {
     return function(a) {
         return function(b) {
@@ -121,7 +131,9 @@ var add10 = add(10);
 println(add(10)(20));
 println(add10(20));
 
+
 section("mCurry");
+
 var mCurry = function(f) {
     return function(a) {
         return function() {

@@ -2,6 +2,7 @@
 
 chapter("Functions");
 section("dump");
+
 var dump = function() {
     for (var i = 0; i < arguments.length; i++) {
         println(arguments[i]);
@@ -10,7 +11,9 @@ var dump = function() {
 println("dump =", dump);
 dump(1, 2, "hello", null, undefined);
 
+
 section("sum");
+
 var sum = function() {
     var result = 0;
     for (var i = 0; i < arguments.length; i++) {
@@ -21,7 +24,9 @@ var sum = function() {
 println("sum =", sum);
 example("sum(1, 2, 3)");
 
+
 section("minimum");
+
 var minimum = function() {
     var result = Infinity;
     for (var i = 0; i < arguments.length; i++) {
@@ -34,7 +39,9 @@ var minimum = function() {
 println("minimum =", minimum);
 example("minimum(1, -2, 3)");
 
+
 section("Named functions and arguments");
+
 function min(a, b) {
     return a < b ? a : b;
 }

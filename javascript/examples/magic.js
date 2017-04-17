@@ -42,8 +42,12 @@ function lecture(name) {
 function dumpObject(name, o) {
     println(name);
     for (var attribute in o) {
-        if (typeof(o[attribute]) == "function") {
-            println("    " + attribute + "() = " + o[attribute]());
+        if (typeof(o[attribute]) === "function") {
+            if (o[attribute].length == 0) {
+                println("    " + attribute + "() -> " + o[attribute]());
+            } else {
+                println("    " + attribute + "(...)");
+            }
         } else {
             println("    " + attribute + " = " + o[attribute]);
         }
