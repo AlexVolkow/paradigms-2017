@@ -13,6 +13,10 @@
 
 Домашнее задание 9. Функциональные выражения на JavaScript
 ---
+ * *Модификация*. Дополнительное реализовать поддержку:
+    * переменных `y`, `z`, `u`, `v`, `w`;
+    * [Исходный код тестов](javascript/test/FunctionalVariablesTest.java)
+        * Запускать c аргументом `hard` или `easy`
  * *Базовая*
     * Код должен находиться в файле `expression.js`.
     * [Исходный код тестов](javascript/test/FunctionalExpressionTest.java)
