@@ -8,7 +8,7 @@
  * *Базовая*
     * Код должен находиться в файле `objectExpression.js`.
     * [Исходный код тестов](javascript/test/ObjectExpressionTest.java)
-        * Запускать c аргументом `easy`, `hard` или `bonus`
+        * Запускать c аргументом `easy`, `hard` или `bonus`.
 
 
 Домашнее задание 9. Функциональные выражения на JavaScript
@@ -16,12 +16,11 @@
  * *Модификация*. Дополнительное реализовать поддержку:
     * переменных `y`, `z`, `u`, `v`, `w`;
     * [Исходный код тестов](javascript/test/FunctionalVariablesTest.java)
-        * Запускать c аргументом `hard` или `easy`
+        * Запускать c аргументом `hard` или `easy`.
  * *Базовая*
-    * Код должен находиться в файле `expression.js`.
+    * Код должен находиться в файле `functionalExpression.js`.
     * [Исходный код тестов](javascript/test/FunctionalExpressionTest.java)
-        * Запускать c аргументом `hard` или `easy`
-        * Решение должно называться `functionalExpression.js`
+        * Запускать c аргументом `hard` или `easy`;
 
 Исходный код к лекции по JavaScript
 ----
