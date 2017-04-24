@@ -3,6 +3,13 @@
 
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
+Домашнее задание 11. Обработка ошибок на JavaScript
+---
+ * *Базовая*
+    * Код должен находиться в файле `objectExpression.js`.
+    * [Исходный код тестов](javascript/test/PrefixParserTest.java)
+        * Запускать c аргументом `easy` или `hard`
+
 Домашнее задание 10. Объектные выражения на JavaScript
 ---
  * *Базовая*
