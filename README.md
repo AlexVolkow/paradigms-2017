@@ -57,8 +57,10 @@
 ----
 * [Скрипт с примерами](javascript/script.js)
 * [Запуск в браузере](javascript/RunJS.html)
-* [Запуск из консоли](javascript/RunJS.java) (на Java)
-* [Запуск из консоли](javascript/RunJS.js) (на node.js)
+* Запуск из консоли
+    * [на Java](javascript/RunJS.java)
+    * [на jjs](javascript/RunJS.jjs.js)
+    * [на node.js](javascript/RunJS.node.js)
 
 Обратите внимание на реализацию функции `mCurry` в разделе про 
 [функции высшего порядка](javascript/examples/functions-hi.js).
