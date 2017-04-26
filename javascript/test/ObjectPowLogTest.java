@@ -15,15 +15,31 @@ public class ObjectPowLogTest extends ObjectExpressionTest {
                 f("pow", vx, vy),
                 f("log", vx, vy),
                 f("pow", vx, f("-", vy, vz)),
-                f("log", f("-", vx, vz), f("-", vy, vz))
+                f(
+                        "pow",
+                        c(2),
+                        f("+", c(1), f("*", c(2), f("-", vy, vz)))
+                ),
+                f(
+                        "log",
+                        f("+", c(2), f("*", c(4), f("-", vx, vz))),
+                        f("+", c(1), f("*", c(2), f("-", vy, vz)))
+                )
         );
     }}
 
     protected ObjectPowLogTest(final int mode, final Language language) {
         super(mode, language);
+        simplifications.addAll(list(
+                new int[]{25, 43, 11},
+                new int[]{54, 37, 11},
+                new int[]{33, 47, 52},
+                new int[]{11, 54, 55},
+                new int[]{106, 65, 166}
+        ));
     }
 
     public static void main(final String... args) {
-        test(ObjectPowLogTest.class, ObjectPowLogTest::new, new PowLogTests(), new String[]{"easy"}, POW_LOG_OBJECT);
+        test(ObjectPowLogTest.class, ObjectPowLogTest::new, new PowLogTests(), args, POW_LOG_OBJECT);
     }
 }
