@@ -27,7 +27,6 @@ public class PrefixSinCosTest extends PrefixParserTest {
     protected void test() {
         super.test();
 
-
         testParsing();
     }
 
@@ -35,6 +34,7 @@ public class PrefixSinCosTest extends PrefixParserTest {
         printParsingError("Empty input", "");
         printParsingError("Unknown variable", "a");
         printParsingError("Invalid number", "-a");
+        printParsingError("Invalid number 2", "--3");
         printParsingError("Missing )", "(* z (+ x y)");
         printParsingError("Unknown operation", "(@@  x y)");
         printParsingError("Excessive info", "(+ x y) x");
