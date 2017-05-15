@@ -3,6 +3,13 @@
 
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
+Домашнее задание 11. Выражения на Clojure
+---
+ * *Базовая*
+    * Код должен находиться в файле `expression.clj`.
+    * [Исходный код тестов](clojure/test/ClojureFunctionExpressionTest.java)
+        * Запускать c аргументом `easy` или `hard`
+
 Исходный код к лекции по Clojure
 ----
 * [Скрипт с примерами](clojure/script.clj)

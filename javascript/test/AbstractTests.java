@@ -16,7 +16,7 @@ import java.util.stream.Stream;
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
 public abstract class AbstractTests implements Cloneable {
-    private final List<AbstractExpression> tests = new ArrayList<>();
+    protected final List<AbstractExpression> tests = new ArrayList<>();
     private final Map<String, Operator<Double>> operators = new HashMap<>();
     private final Map<String, TExpr> nullary = new HashMap<>();
     private final List<AbstractExpression> variables = new ArrayList<>();
@@ -49,7 +49,13 @@ public abstract class AbstractTests implements Cloneable {
             return generateP(random, depth);
         } else {
             final String name = operatorNames.get(random.nextInt(operatorNames.size()));
-            return f(name, Stream.generate(() -> generateP(random, depth)).limit(operators.get(name).arity()).toArray(AbstractExpression[]::new));
+            final int arity = operators.get(name).arity();
+            return f(
+                    name,
+                    Stream.generate(() -> generateP(random, depth))
+                            .limit(arity == -1 ? 1 + random.nextInt(4) : arity)
+                            .toArray(AbstractExpression[]::new)
+            );
         }
     }
 
