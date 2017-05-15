@@ -3,6 +3,20 @@
 
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/paradigms/homeworks.html)
 
+Исходный код к лекции по Clojure
+----
+* [Скрипт с примерами](clojure/script.clj)
+    * [Введение](clojure/examples/intro.clj)
+    * [Функции](clojure/examples/functions.clj)
+    * [Списки](clojure/examples/lists.clj)
+    * [Отображения](clojure/examples/maps.clj)
+    * [Разбор](clojure/examples/read.clj)
+    * [Функции высшего порядка](clojure/examples/functions-2.clj)
+* Запуск из консоли [под Windows](clojure/RunClojure.cmd), 
+    [под *nix](clojure/RunClojure.sh)
+
+            RunClojure script.clj
+
 Домашнее задание 11. Обработка ошибок на JavaScript
 ---
  * *Модификация 2*. Дополнительное реализовать поддержку выражений в постфиксной записи:
